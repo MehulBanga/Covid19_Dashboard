@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+{% endblock %}
+{% block content %}
+<figure class="highcharts-figure">
+    <div id="top10"></div>
+    <script>var series = {{series|safe}}</script>
+</figure>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+            var chart = Highcharts.chart('top10',{
+
+              chart: {
+                type: 'scatter',
+                zoomType: 'xy'
+              },
+              title: {
+                text: 'yoyo'
+              },
+              subtitle: {
+                text: 'Source: Heinz  2003'
+              },
+              xAxis: {
+                title: {
+                  enabled: true,
+                  text: 'Height (cm)'
+                },
+                startOnTick: true,
+                endOnTick: true,
+                showLastLabel: true
+              },
+              yAxis: {
+                title: {
+                  text: 'Weight (kg)'
+                }
+              },
+              legend: {
+                layout: 'vertical',
+                align: 'center',
+                verticalAlign: 'top',
+                x: 100,
+                y: 70,
+                floating: true,
+                backgroundColor: Highcharts.defaultOptions.chart.backgroundColor,
+                borderWidth: 1
+              },
+              plotOptions: {
+                scatter: {
+                  marker: {
+                    radius: 15,
+                    states: {
+                      hover: {
+                        enabled: true,
+                        lineColor: 'rgb(100,100,100)'
+                      }
+                    }
+                  },
+                  states: {
+                    hover: {
+                      marker: {
+                        enabled: false
+                      }
+                    }
+                  },
+                  tooltip: {
+                    headerFormat: '<b>{series.name}</b><br>',
+                    pointFormat: '{point.x} cm, {point.y} kg'
+                  }
+                }
+              },
+              series:series
+
+              });
+              });
+
+
+</script>
+
+{%endblock%}

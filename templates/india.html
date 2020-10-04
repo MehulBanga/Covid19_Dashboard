@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+
+      {% endblock %}
+{% block content %}
+
+
+
+
+
+<!-- Info Cards-->
+<style type="text/css">
+  h1{
+    color:FBB917;
+    font-family:"Rogue Script",cursive;
+    font-weight: normal;
+    margin: 0 0 50px;
+    text-align:center;
+    text-shadow: 1px 1px 2px #082b34;
+  }
+
+</style>
+<h1 align = "center">India</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <div class="card border-warning mb-3" style="max-width: 18rem;">
+        <div class="card-header" style ="text-align:center">
+          Confirmed Cases
+        </div>
+        <div class="card-body text-warning">
+          <h3 class="card-title" align = "center">
+            {{total_cases}}
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="card border-danger mb-3" style="max-width: 18rem;">
+      <div class="card-header" style="text-align:center" >Deaths</div>
+      <div class="card-body text-danger">
+        <h3 class="card-title" align = "center">{{total_deaths}}</h3>
+
+      </div>
+    </div>
+    </div>
+    <div class="col-sm">
+      <div class="card border-success mb-3" style="max-width: 18rem;">
+    <div class="card-header" style="text-align:center">Recoveries</div>
+    <div class="card-body text-success">
+      <h3 class="card-title" align = "center">{{total_recovered}}</h3>
+      </div>
+  </div>
+    </div>
+  </div>
+</div>
+<br>
+
+
+
+
+
+
+
+<style type="text/css">
+.states{
+  overflow:hidden;
+  padding: 8px 0;
+  margin: 8px 0;
+  border-bottom: 1px solid #4caf50
+}
+  .states input{
+    border:none;
+    outline:none;
+    color:black;
+    margin : 0 10px;
+    background :none;
+
+          }
+
+.cities{
+overflow:hidden;
+padding: 8px 0;
+margin: 8px 0;
+border-bottom: 1px solid #4caf50
+}
+.cities input{
+background :none;
+            border:none;
+            outline:none;
+            color:black;
+            margin : 0 10px;
+            background :none;
+
+                  }
+  .button{
+    float:middle;
+    width: 50%;
+    background :none;
+    border:2px solid #4caf50;
+    color:black;
+    padding:5px;
+    cursor:pointer;
+  }
+
+</style>
+
+
+
+
+<!--
+      Form Part
+
+ Search your cities
+
+
+ -->
+
+<div class = "container">
+<div class = "row justify-content-center">
+  <!-- State -->
+<div class = "col-4">
+<form action = "#" method = "POST">
+<div class = "states">
+<input list = "name_states" class = "form-control mr-sm-2" type = "text" placeholder = "Name of your state" name = "state" id = "search_state" >
+<datalist id = "name_states">
+{% for state in name_states %}
+<option value = "{{state}}">{{state}}</option>
+{%endfor%}
+</datalist>
+</div>
+
+<!-- Cities -->
+<div class = "cities">
+
+  <input list = "cities" class = "form-control mr-sm-2" type = "text" placeholder = "Name of your city" name = "city" id = "search_city">
+  <datalist id = "cities">
+    {% for city in cities %}
+      <option value = "{{city}}">{{city}}</option>
+      {%endfor%}
+  </datalist>
+</div>
+<br>
+
+  <input class = "button" type="submit" value="Search Your City">
+</form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Table-->
+
+
+
+<div class="container">
+
+    <table  class="table" width=100%>
+      <thead class= "thead-light">
+      <tr>
+        <!-- <th>SR.No</th> -->
+        <th>State</th>
+        <th>Confirmed</th>
+        <th>Deaths</th>
+        <th>Recovered</th>
+
+      </tr>
+      </thead>
+      <tbody>
+        {% for i in states %}
+          <tr>
+              <!-- <td>{{i[0]}}</td> -->
+              <td>{{i[1]}}</td>
+              <td style = "color: #FDD017">{{i[2]}}</td>
+              <td style="color:red">{{i[3]}}</td>
+              <td style = "color:green">{{i[4]}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+{% endblock %}

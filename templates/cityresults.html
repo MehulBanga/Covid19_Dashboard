@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+      {% endblock %}
+{% block content %}
+
+<br>
+<h1>{{city_name}},{{state_name}}</h1>
+<br>
+
+<div class = "container">
+    <div class="row justify-content-center">
+      <div class="card border-warning mb-3" style="width: 18rem;">
+        <div class="card-header" style ="text-align:center">
+          Confirmed Cases
+        </div>
+        <div class="card-body text-warning">
+          <h3 class="card-title" align = "center">
+            {{total_cases}}
+          </h3>
+        </div>
+      </div>
+      </div>
+</div>
+<div class="row justify-content-center">
+  <div class="card border-danger mb-3" style="width: 18rem;">
+  <div class="card-header" style="text-align:center" >Deaths</div>
+  <div class="card-body text-danger">
+    <h3 class="card-title" align = "center">{{Death_cases}}</h3>
+
+  </div>
+</div>
+</div>
+
+<div class="row justify-content-center">
+  <div class="card border-success mb-3" style="width: 18rem;">
+<div class="card-header" style="text-align:center">Recoveries</div>
+<div class="card-body text-success">
+  <h3 class="card-title" align = "center">{{Total_recoveries}}</h3>
+  </div>
+</div>
+</div>
+
+{% endblock %}

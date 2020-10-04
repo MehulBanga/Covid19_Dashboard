@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+<!-- Head -->
+{% block title %}
+
+{% endblock %}
+
+<!-- body -->
+
+{% block content %}
+<style type="text/css">
+  .country{
+    overflow:hidden;
+    padding: 8px 0;
+    margin: 8px 0;
+    border-bottom: 1px solid #4caf50
+  }
+  .country input{
+    border:none;
+    outline:none;
+    color:black;
+    margin : 0 10px;
+    background :none;
+  }
+
+</style>
+
+
+<br>
+
+
+<div class="container">
+<div class="row justify-content-center">
+<div class="col-4">
+
+<div class = "country">
+
+<input class="form-control mr-sm-2" type = "text" name = "country" id = "input" placeholder="Search for a country.." aria-label="Search" onkeyup="searchFun()">
+
+</div>
+</div>
+</div>
+<!-- searchfun() needs to be defined and is defined at the end -->
+<br>
+
+<div class="container">
+
+    <table  class="table"  width=100% id = "country_table">
+      <thead class= "thead-light">
+      <tr>
+        <!-- <th>Sr.No</th> -->
+        <th>Country Code</th>
+        <th>Country</th>
+        <th>Confirmed </th>
+        <th>Deaths</th>
+        <th>Recovered</th>
+      </tr>
+      </thead>
+      <tbody>
+        {% for i in countries %}
+          <tr>
+              <!-- <td>{{i[0]}}</td -->
+              <td>{{i[1]}}</td>
+              <td>{{i[2]}}</td>
+              <td style = "color:#FDD017">{{i[3]}}</td>
+              <td style = "color:red">{{i[4]}}</td>
+              <td style = "color:green">{{i[5]}}</td>
+
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+<!-- filter table js -->
+
+    <script>
+    function searchFun() {
+      // Declare variables
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("input");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("country_table");
+      tr = table.getElementsByTagName("tr");
+
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td1 = tr[i].getElementsByTagName("td")[1];
+        td = tr[i].getElementsByTagName("td")[2];
+        if (td && td1) {
+          txtValue = td.textContent || td.innerText;
+          txtValue1 = td1.textContent || td1.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1 || txtValue1.toUpperCase().indexOf(filter) > -1)  {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+    </script>
+
+{% endblock %}

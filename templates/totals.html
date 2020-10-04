@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+      {% endblock %}
+
+{% block content %}
+<br>
+<!--
+<div class = "container" style = "height: auto !important;">
+  <div class = "row" style = "height: auto !important;">
+    <div class = "col-md-8" style = "height: auto !important;">
+      <div class = "content-inner" style = "height: auto !important;">
+<div class = "label" id = "page-top"> Covid 19 Coronavirus Pandemic </div>
+-->
+
+
+
+
+<!-- Global Info -->
+<div class="container">
+
+  <div class="row row-cols-4">
+
+    <div class="col">
+      <div class="card border-warning mb-3" style="max-width: 18rem;">
+<!-- temp style testing
+       <div class="card-header" style ="text-align:center">
+         Confirmed Cases
+        </div>
+        -->
+        <div class="card-body text-warning">
+          <h3 class="card-title" align = "center">
+            {{total_cases}}
+          </h3>
+          <h6 align = "center">Confirmed</h6>
+
+        </div>
+      </div>
+      </div>
+
+    <div class="col">
+      <div class="card border-danger mb-3" style="max-width: 18rem;">
+<!-- temp style testing
+      <div class="card-header" style="text-align:center" >Deaths Worldwide</div> -->
+      <div class="card-body text-danger">
+        <h3 class="card-title" align = "center">{{Death_cases}}</h3>
+        <h6 align = "center"> Deaths</h6>
+
+
+      </div>
+    </div>
+    </div>
+    <div class="col">
+      <div class="card border-success mb-3" style="max-width: 18rem;">
+<!-- temp style testing
+    <div class="card-header" style="text-align:center">Recoveries</div> -->
+    <div class="card-body text-success">
+      <h2 class="card-title" align = "center">{{Total_recoveries}}</h2>
+      <h6 align = "center"> Recoveries</h6>
+      </div>
+  </div>
+    </div>
+    <div class = "col">
+      <div class="card border-info mb-3" style="max-width: 18rem;">
+<!-- temp style testing
+        <div class="card-header" style="text-align:center">Generic Death rate</div> -->
+        <div class="card-body text-info">
+          <h3 class="card-title" align = "center">{{Death_rate}}</h3>
+          <h6 align = "center"> Death rate </h6>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+<br>
+
+
+<div class = "container">
+  <div class="row justify-content-center">
+    <div class="col">
+      <figure class="highcharts-figure">
+          <div id="worldplot"></div>
+        <script>
+        //variables
+        var data1 = {{data_for_map|safe}}
+          </script>
+
+            <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+            <script src="https://code.highcharts.com/maps/modules/data.js"></script>
+            <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+            <script src="https://code.highcharts.com/maps/modules/offline-exporting.js"></script>
+            <script src="https://code.highcharts.com/mapdata/custom/world.js"></script>
+
+          <!-- Flag sprites service provided by Martijn Lafeber, https://github.com/lafeber/world-flags-sprite/blob/master/LICENSE -->
+          <link rel="stylesheet" type="text/css" href="//github.com/downloads/lafeber/world-flags-sprite/flags32.css" />
+
+
+
+          <script type="text/javascript">
+
+          //graph here
+
+
+          Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/world-population-density.json', function (data) {
+
+          // Prevent logarithmic errors in color calulcation
+          data.forEach(function (p) {
+              p.value = (p.value < 1 ? 1 : p.value);
+          });
+
+          // Initiate the chart
+          Highcharts.mapChart('worldplot', {
+
+              chart: {
+                  map: 'custom/world'
+              },
+
+              title: {
+                  text: 'World Plot Of Covid 19 Infected Patients'
+              },
+
+              legend: {
+                  title: {
+                      text: 'Infected Population',
+                      style: {
+                          color: ( // theme
+                              Highcharts.defaultOptions &&
+                              Highcharts.defaultOptions.legend &&
+                              Highcharts.defaultOptions.legend.title &&
+                              Highcharts.defaultOptions.legend.title.style &&
+                              Highcharts.defaultOptions.legend.title.style.color
+                          ) || 'black'
+                      }
+                  }
+              },
+
+              mapNavigation: {
+                  enabled: true,
+                  buttonOptions: {
+                      verticalAlign: 'bottom'
+                  }
+              },
+
+              tooltip: {
+                  backgroundColor: 'none',
+                  borderWidth: 0,
+                  shadow: false,
+                  useHTML: true,
+                  padding: 0,
+                  pointFormat: '<span class="f32"><span class="flag {point.properties.hc-key}">' +
+                      '</span></span> {point.name}<br>' +
+                      '<span style="font-size:20px">{point.value}</span>',
+                  positioner: function () {
+                      return { x: 200, y: 260 };
+                  }
+              },
+
+              colorAxis: {
+                  min: 1,
+                  max: 3000000,
+                  tickInterval : 500000,
+                  stops: [[0, '#F1EEF6'], [0.05, '#900037'], [1, '#500007']]
+              },
+
+
+              series: [{
+                  data: data1,
+                  joinBy: ['iso-a3', 'code3'],
+                  name: 'Infected Population',
+                  states: {
+                      hover: {
+                          color: 'black'
+                      }
+                  }
+              }]
+          });
+      });
+
+
+      </script>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="container">
+<div class="row justify-content-center">
+
+
+
+  <!-- Active Cases -->
+  <div class="col-4">
+  <div class="card border-secondary mb-3" style="max-width: 28rem;">
+    <div class="card-header" style="text-align:center">Active Cases</div>
+      <div class="card-body text-secondary">
+        <h4 class="card-title" style="text-align:center">{{current_active_cases}} </h4>
+        <p class="card-text" style = "text-align:center">Currently Active Cases</p>
+        <br>
+        <div style ="float:left; text-align:center">
+          <h6 style ="text-align:center">{{cases_today}}</h6>
+          <p>New Cases</p>
+        </div>
+        <div style = "float:right; textalign:center">
+          <h6 style ="text-align:center">{{deaths_today}}</h6>
+          <p>New Deaths</p>
+          </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- Closed Cases -->
+  <div class="col-4">
+    <div class="card border-secondary mb-3" style="max-width: 28rem;">
+      <div class="card-header" style="text-align:center"> Closed Cases</div>
+        <div class="card-body text-secondary">
+          <h4 class="card-title" style="text-align:center">{{closed_cases}} </h4>
+          <p class="card-text" style = "text-align:center"> Closed Cases</p>
+          <br>
+          <div style ="float:left; text-align:center">
+            <h5 style ="text-align:center"> {{closed_recovered}}({{closed_recovered_percentage}}%) </h5>
+            <p>Recovered</p>
+          </div>
+          <div style = "float:right; text-align:center">
+            <h5 style ="text-align:center">{{closed_dead}}({{closed_death_percentage}}%)</h5>
+            <p>Deaths</p>
+            </div>
+        </div>
+      </div>
+  </div>
+
+</div>
+</div>
+
+
+
+
+
+  {% endblock %}
