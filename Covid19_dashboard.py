@@ -112,7 +112,7 @@ def world():
         country = i["Country"]
         confirmed = i["TotalConfirmed"]
         deaths = i["TotalDeaths"]
-        recovered = i["TotalRecovered"]
+        recovered = i["TotalConfirmed"] - i["TotalDeaths"]
         cur.execute("INSERT OR REPLACE INTO countries(rid,sr,name,confirmed,deaths,recovered) VALUES(?,?,?,?,?,?)" , (rid,sr , country , confirmed , deaths , recovered, ))
     
     con.commit()
